@@ -39,11 +39,7 @@ class ProfileController extends Controller
     public function search_in_district($id)
   
     {
-        //dd("esh..");
-        //$region_id=$id;
-        // $post is automatically resolved by Laravel using the 'slug' or 'name' field
 
-    
         $users=User::where('district_id', '=', $id)->get();
         $districts=District::where('region_id', '=', $id)->get();
         $district=District::where('id', '=', $id)->pluck('district')->first();
