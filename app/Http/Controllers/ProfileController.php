@@ -50,26 +50,47 @@ class ProfileController extends Controller
 
     
     public function edit(Request $request): View
-    {
+    {//dd('uu');
+        $districts = District::all();
         return view('profile.edit', [
             'user' => $request->user(),
+            'districts' => $districts, // Pass the districts data to the view
         ]);
+        // dd("shit edit");
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    //public function update2(ProfileUpdateRequest $request): RedirectResponse
+    public function update2(Request $request)
     {
-        $request->user()->fill($request->validated());
+     
 
+        $validatedData = $request->validate([
+            'name' => 'nullable|max:255', // Allow null values to maintain current data
+            'email' => 'nullable|max:255', // Ensure email format if provided
+            'township' => 'nullable|max:255', 
+            'district_id' => 'nullable|integer', // Ensure it's an integer if provided
+        ]);
+    
+        // Filter out null values to keep existing values in the database
+        $filteredData = array_filter($validatedData, function ($value) {
+            return $value !== null;
+        });
+    
+        // Update user data only with provided fields
+        $request->user()->fill($filteredData);
+    
         if ($request->user()->isDirty('email')) {
             $request->user()->email_verified_at = null;
         }
-
+        // dd("shit update");
         $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+    $districts=District::all();
+    $user= Auth::user();
+        //return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return view('profile.edit', compact('districts','user'))->with('status', 'profile-updated'); 
     }
 
     /**

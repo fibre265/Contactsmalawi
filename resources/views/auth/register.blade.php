@@ -24,7 +24,7 @@
     </div>
 
     <!-- Region -->
-    <div class="form-group">
+    <!-- <div class="form-group">
         <label for="region">Region:</label>
         <select name="region_id" class="form-control{{ $errors->has('region_id') ? ' is-invalid' : '' }}" id="region" required>
             <option disabled selected>-Select-</option>
@@ -37,7 +37,7 @@
                 <strong>{{ $errors->first('region_id') }}</strong>
             </span>
         @endif
-    </div>
+    </div> -->
 
     <!-- District -->
     <div class="form-group">

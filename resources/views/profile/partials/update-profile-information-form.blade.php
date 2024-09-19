@@ -13,7 +13,7 @@
         @csrf
     </form>
 
-    <form method="post" action="{{ route('profile.update') }}" class="mt-6 space-y-6">
+    <form method="post" action="{{ route('profile.update2') }}" class="mt-6 space-y-6">
         @csrf
         @method('patch')
 
@@ -24,8 +24,24 @@
         </div>
 
         <div>
-            <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" name="email" type="email" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
+            <x-input-label for="name" :value="__('Township')" />
+            <x-text-input id="township" name="township" type="text" class="mt-1 block w-full" :value="old('township', $user->township)" required autofocus autocomplete="name" />
+            <x-input-error class="mt-2" :messages="$errors->get('township')" />
+        </div>
+
+        <div>
+        <x-input-label for="name" :value="__('District')" />
+            <select name="district_id" for="name"  type="text" class="border-gray-300 focus:border-indigo-500 focus:ring-indigo-500 rounded-md shadow-sm mt-1 block w-full" >
+                    <option disabled selected>-district-</option>
+                    @foreach ($districts as $district)
+                        <option value="{{ $district->id }}" >{{ $district->district }}</option>
+                    @endforeach
+            </select>
+        </div>
+
+        <div>
+            <x-input-label for="email" :value="__('Phonenumber')" />
+            <x-text-input id="email" name="email" type="text" class="mt-1 block w-full" :value="old('email', $user->email)" required autocomplete="username" />
             <x-input-error class="mt-2" :messages="$errors->get('email')" />
 
             @if ($user instanceof \Illuminate\Contracts\Auth\MustVerifyEmail && ! $user->hasVerifiedEmail())
