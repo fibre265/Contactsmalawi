@@ -269,37 +269,8 @@
           </div>
         @endforeach
         </div>
-
-        <!-- <div class="card">
-        <div class="card-body">
-                <div class="table-responsive">
-                    <table class="table table-hover table-sm table-striped">
-                        <thead>
-                            <th>Sr.</th>
-                            <th>District</th>
-                            <th>Actions</th>
-                        </thead>
-                        <tbody>
-                            @foreach ($districts as $ta)
-                                <tr>
-                                    <td>{{ $loop->iteration }}.</td>
-                                    <td>{{ $ta->district }} </td>
-                                  
-                                    <td>
-                                        <a href="/location/tas/show/{{ $ta->id }}"
-                                            class="btn btn-primary btn-sm btn-icon"> view {{ $ta->district }} Contacts(567)<i class="fa fa-eye"></i></a>
-                                    
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-        </div>
-    </div> -->
-
       </div>
-
+      </section><!-- End count Section -->
 
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">

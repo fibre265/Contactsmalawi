@@ -1,75 +1,30 @@
-
-
-
-
-
-
-       
-
 @extends('layouts.generalLayout')
 @section('content')
 
-<x-guest-layout>
-
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-
-  <!-- ======= Team Section ======= -->
-
-<section id="team" class="team">
-
-      <div class="container">
-      <li>Region: {{ $region }}</li>
-<div class="section-title" data-aos="fade-in" data-aos-delay="100">
-  <h2>Phone Number:</h2>
-  @foreach ($districts as $district)
-  <a href="/search_in_district/{{ $district->id }}">
-    <li>District: {{ $district->district }}</li>
-    <li>Contacts: {{ $district->user->count() }}</li>
-    <!-- <li>Contacts: {{ $district->id }}</li> -->
-    </a>
-    <hr>
-  @endforeach
-</div>
-          
-            If this is not the agent number you acre looking for,plese call 08867.. and you will be assisted as soon as possible if the number is register with us</p>
+ <!-- ======= Contact Section ======= -->
+ <section id="contact" class="contact section-bg">
+      <div class="container" data-aos="fade-up">
+     
+        <div class="section-title">
+          <h2> {{ $region }} Region</h2>
+          <p> If this is not the agent number you acre looking for,plese call 08867.. and you will be assisted as soon as possible if the number is register with us</p></p>
         </div>
 
-        <div class="">
-
-          <div class="col-lg-12 col-md-12">
-            <div class="member" data-aos="fade-up">
-          
-              <div class="member-info">
-                <h4>Contacts Malawi</h4>
-                <span>Chief Executive Officer</span>
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
-              </div>
+        <div class="row">
+        @foreach ($districts as $district)
+          <div class="col-lg-3 col-md-6">
+          <a href="/search_in_district/{{ $district->id }}">
+            <div class="info-box  mb-4">
+              <i class=" bx bx-envelope"><i class="bx bx-phone-call"></i></i>
+              <h3>{{ $district->district }}</h3>
+              <p><i>Contacts: {{ $district->user->count() }}</i></p>
             </div>
+            </a>
           </div>
+		  
+          @endforeach
         </div>
 
       </div>
-    </section><!-- End Team Section -->
- 
-
-</x-guest-layout>
+    </section><!-- End Contact Section -->
 @endsection
-
-
-
-
-
-
-
-
-
- 
-
-
-
