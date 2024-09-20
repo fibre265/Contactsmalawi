@@ -44,7 +44,7 @@
     <div class="container d-flex align-items-center justify-content-between position-relative">
 
       <div class="logo">
-        <h1 class="text-light"><a href="index.html"><span>Squadfree</span></a></h1>
+        <h1 class="text-light"><a href="index.html"><span>Contactsmw</span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -112,7 +112,7 @@
             
           @if (Route::has('login'))
                                 @auth
-                                        Dashboard
+                               <a href="/dashboard">Dashboard</a>
                                 @else
                                 <li><a class="nav-link scrollto" href="{{ route('login') }}">Login</a></li> 
                                     @if (Route::has('register'))
@@ -133,8 +133,9 @@
   <!-- ======= Hero Section ======= -->
   <section id="hero">
     <div class="hero-container" data-aos="fade-up">
-      <h1>Welcome to COntactsmalawi</h1>
-      <h2>Quickly contact emergency repsonse in within your area </h2>
+      <h1> <i>Contactsmalawi</i> </h1>
+     
+      <h2> <i>Find the emergency contact  within your area</i> </h2>
 
 
       <div class="main">
@@ -142,63 +143,35 @@
   
   <!-- Actual search box -->
   <div class="form-group has-search">
-    <span class="fa fa-search form-control-feedback"></span>
-   
+    <span class="fa fa-search form-control-feedback"></span> 
   </div>
   
   <!-- Another variation with a button -->
-  <form method="POST" action="{{ route('submit_searches') }}">
-  @csrf <!-- {{ csrf_field() }} -->
-  <div class="input-group">
-  <!-- <select name="region"  >
-  <option disabled selected>-Region-</option>
-                  @foreach ($regions as $region)
-                        <option value="{{ $region->region }}">{{ $region->region }}</option>
-                    @endforeach
-                   
-                </select> -->
-                <select name="district"  >
-                <option disabled selected>-district-</option>
-                @foreach ($districts as $district)
-                        <option value="{{ $district->district }}">{{ $district->district }}</option>
-                    @endforeach
-                  
-                   
-                </select>
-                <!-- <script>
-    $(document).ready(function() {
-        $('#region').change(function() {
-            var regionId = $(this).val();
+ <form method="POST" action="{{ route('submit_searches') }}">
+    @csrf
 
-            $.ajax({
-                url: '/get-districts-by-region/' + regionId,
-                method: 'GET',
-                success: function(data) {
-                    $('#district').empty();
-                    $.each(data, function(index, district) {
-                        $('#district').append('<option value="' + district.id + '">' + district.district + '</option>');
-                    });
-                }
-            });
-        });
-    });
-</script> -->
-    <input type="text" name="name" class="form-control" placeholder="Search what you want">
-    <div class="input-group-append">
-  
-    <!-- <button type="button">Add Segment</button> -->
-    <!-- <button type="submit"><i class="fa fa-search"></i></button> -->
-        <button class="btn-get-started scrollto"><i class="bx bx-search"></i></button>
-    
+    <div class="input-group mb-3">
+        <select name="district" class="form-control">
+            <option disabled selected>-district-</option>
+            @foreach ($districts as $district)
+                <option value="{{ $district->district }}">{{ $district->district }}</option>
+            @endforeach
+        </select>
 
+        <input type="text" name="name" class="form-control" placeholder="Search what you want">
+
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">
+                <i class="bx bx-search"></i> Search
+            </button>
+        </div>
     </div>
-  </div>
-  
-</div>
-
-    </div>
-    </form>
+</form>
   </section><!-- End Hero -->
+
+
+
+  
 
   <main id="main">
 
@@ -251,7 +224,7 @@
     <!-- End Services Section -->
 
     <!-- ======= Counts Section ======= -->
-    <section id="counts" class="counts  section-bg">
+    <!-- <section id="counts" class="counts  section-bg">
       <div class="container">
 
         <div class="row no-gutters">
@@ -270,7 +243,35 @@
         @endforeach
         </div>
       </div>
-      </section><!-- End count Section -->
+      </section>End count Section -->
+
+
+
+      <section id="contacts" class="contacts section-bg">
+  <div class="container">
+
+    <div class="row">
+      <h2 class="col-12 text-center mb-5">QuickEmergency Contacts</h2>
+
+      @foreach ($users as $user)
+        <div class="col-lg-4 col-md-6 mb-4">
+          <div class="card shadow-sm">
+            <div class="card-body">
+              
+            <div class="count-box">
+              <i class="bi bi-headset"></i>
+              <span data-purecounter-start="0" data-purecounter-end="{{ $user->email }}" data-purecounter-duration="1" class="purecounter"></span>
+              <p><strong>{{ $user->name }}</strong> <br>{{ $user->township }} from {{ $user->district->district }}  </p>
+            </div>
+              <a href="{{ route('users.show', $user) }}" class="btn btn-primary">call now<i class="bx bx-phone-call"></i></a>
+            </div>
+          </div>
+        </div>
+      @endforeach
+    </div>
+  </div>
+</section>
+
 
     <!-- ======= Services Section ======= -->
     <section id="services" class="services">
@@ -287,11 +288,11 @@
           <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
           <a href="/search_region/{{$region->id }}">
             <div class="icon-box" data-aos="fade-up">
-            
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4 class="title"><a href="">{{ $region->region }}</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-              
+            <center> <div class="icon"><i class="bx bxl-dribbble"></i></div>
+             
+              <h4 class="title"><a href="">{{ $region->region }} Region</a></h4>
+              <p class="description">click in the iconn and it will give you all the emegency contacts available and see if you are going to find yours there</p>
+              </center>
             </div>
             </a>
           </div>

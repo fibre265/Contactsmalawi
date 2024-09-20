@@ -1,102 +1,50 @@
 @extends('layouts.generalLayout')
 @section('content')
-@if ($users->isEmpty())
-<x-guest-layout>
 
-<!-- Session Status -->
-<x-auth-session-status class="mb-4" :status="session('status')" />
-<!-- ======= Team Section ======= -->
-<section id="team" class="team">
-  <div class="container">
-    <div class="section-title" data-aos="fade-in" data-aos-delay="100">
-      <h2>Emergency Contacts Malawi</h2>
-          <ul>
-                  <li>
-                      <!-- Display the district name -->
-                      <h2>No Matchimg contacts were found</h2>
-                      <!-- Display the district name -->
-                  </li>
-          </ul>
-        If this is not the agent number you acre looking for,plese call 08867.. and you will be assisted as soon as possible if the number is register with us</p>
-    </div>
-    <div class="">
-      <div class="col-lg-12 col-md-12">
-        <div class="member" data-aos="fade-up">
-          <div class="member-info">
-            <h4>Contacts Malawi</h4>
-            <span>Chief Executive Officer</span>
-            <div class="social">
-              <a href=""><i class="bi bi-twitter"></i></a>
-              <a href=""><i class="bi bi-facebook"></i></a>
-              <a href=""><i class="bi bi-instagram"></i></a>
-              <a href=""><i class="bi bi-linkedin"></i></a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+<!-- Add custom styles for the section and heading -->
+<style>
+    .section-bg {
+        background-color: #f8f9fa; /* Light background */
+        padding: 50px 0;
+    }
+    .section-title {
+        font-size: 3rem;
+        font-weight: 700;
+        color: #007bff; /* Bright blue color */
+        text-align: center;
+        margin-bottom: 20px;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+    }
+    .count-box {
+        background: #ffffff; /* White background for boxes */
+    }
+    .count-box i {
+        font-size: 3rem;
+        color: #007bff; /* Icon color */
+        margin-bottom: 15px;
+    }
 
-  </div>
-</section><!-- End Team Section -->
-</x-guest-layout>
-@else
-@foreach ($users as $user)
-<x-guest-layout>
+</style>
 
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
 
-  <!-- ======= Team Section ======= -->
-
-<section id="team" class="team">
-
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
-          <h2>Phone Number: {{ $user->email }}</h2>
-  
-
-    <ul>
-            <li>
-                 <!-- Display the district name -->
-                 <h2>Name: {{ $user->name }}</h2>
-                <!-- Display the district name -->
-                <h2>District: {{ $user->district->district }}</h2>
-
-                <!-- Display the region name -->
-                <h2>Region: {{ $user->district->region->region }}</h2>
-            </li>
-        
-    </ul>
-
-          
-            If this is not the agent number you acre looking for,plese call 08867.. and you will be assisted as soon as possible if the number is register with us</p>
-        </div>
-
-        <div class="">
-
-          <div class="col-lg-12 col-md-12">
-            <div class="member" data-aos="fade-up">
-          
-              <div class="member-info">
-                <h4>Contacts Malawi</h4>
-                <span>Chief Executive Officer</span>
-                <div class="social">
-                  <a href=""><i class="bi bi-twitter"></i></a>
-                  <a href=""><i class="bi bi-facebook"></i></a>
-                  <a href=""><i class="bi bi-instagram"></i></a>
-                  <a href=""><i class="bi bi-linkedin"></i></a>
-                </div>
+<section id="counts" class="">
+<div class="container">
+<div class="row no-gutters">
+<h1 class="section-title">CHIKWAWA</h1>
+          @foreach ($users as $user)
+            <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
+            <a href="{{ route('users.show', $user) }}">
+              <div class="count-box">
+                <i class="bi bi-headset"></i>
+                <span data-purecounter-start="0" data-purecounter-end="{{ $user->email }}" data-purecounter-duration="1" class="purecounter"></span>
+                <p><strong>{{ $user->name }}</strong> <br> {{ $user->township }}  </p>
               </div>
+              </a>
             </div>
-          </div>
-        </div>
-
-      </div>
-    </section><!-- End Team Section -->
- 
-
-</x-guest-layout>
-@endforeach
-@endif
+          @endforeach
+</div>
+</div>
+</section><!-- End count Section -->
 @endsection
+
