@@ -20,7 +20,7 @@ class SearchController extends Controller
         ->whereHas('district', function ($query) use ($district) {
             $query->where('district', '=', $district);
         })->get();
-        return view('search/index', compact('users'));
+        return view('search/index', compact('users','district'));
     }
 
     /**

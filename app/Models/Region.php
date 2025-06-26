@@ -10,6 +10,6 @@ class Region extends Model
     use HasFactory;
     public function districts()
     {
-        return $this->hasMany('App\District');
+        return $this->hasMany('App\Models\District');
     }
 }

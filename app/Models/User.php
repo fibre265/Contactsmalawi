@@ -20,9 +20,11 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'picture',
         'township',
         'phonenumber',
         'region_id',
+        'category_id',
         'district_id',
         
     ];
@@ -56,5 +58,9 @@ class User extends Authenticatable
     public function district()
     {
         return $this->belongsTo(District::class);
+    }
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 }

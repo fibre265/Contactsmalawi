@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Region;
 use App\Models\District;
+use App\Models\Category;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -21,9 +22,20 @@ class RegisteredUserController extends Controller
      */
     public function create(): View
     {
+        $pro = false;
         $regions = Region::all(); // Fetch regions from the database
         $districts = District::all(); // Fetch districts from the database
-        return view('auth.register', compact('regions','districts'));
+        $categories = Category::all(); // Fetch categories from the database
+        return view('auth.register', compact('regions','districts','pro','categories'));
+    }
+    public function createPro(Request $request): View
+    {
+        //DD("KK");
+        $pro = true;
+        $categories = Category::all(); // Fetch categories from the database
+        $regions = Region::all(); // Fetch regions from the database
+        $districts = District::all(); // Fetch districts from the database
+        return view('auth.register', compact('regions','districts','pro','categories'));
     }
 
     /**
@@ -123,15 +135,29 @@ class RegisteredUserController extends Controller
                 $region_id = 1;
                 break;
         }
-      
+        if ($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $fileName = time() . '.' . $file->getClientOriginalExtension();
+            $filePath = $file->storeAs('uploads/pictures', $fileName, 'public'); // Store the file in the public storage folder
+        } else {
+            $fileName = null; // Handle the case where no file was uploaded
+        }
+        
+       //dd($fileName);
+        
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'district_id' => $request->district_id,
             'region_id' => $region_id,
+            'category_id'=> $request->category_id,
             'password' => Hash::make($request->password),
             'township' => $request->township,
+            'picture' => $fileName,
+   
         ]);
+
+    
 
         event(new Registered($user));
 

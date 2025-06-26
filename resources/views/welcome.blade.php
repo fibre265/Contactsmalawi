@@ -44,7 +44,7 @@
     <div class="container d-flex align-items-center justify-content-between position-relative">
 
       <div class="logo">
-        <h1 class="text-light"><a href="index.html"><span>Contactsmw</span></a></h1>
+        <h1 class="text-light"><a href="/"><span>Contactsmw</span></a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -52,64 +52,54 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="#hero">Home</a></li>
-          <li><a class="nav-link scrollto" href="#about">About Us</a></li>
-          <li><a class="nav-link scrollto" href="#services">Services</a></li>
-          <li><a class="nav-link scrollto" href="#portfolio">Portfolio</a></li>
-          <li><a class="nav-link scrollto" href="#team">Team</a></li>
-          <li class="dropdown"><a href="#"><span>Drop Down</span> <i class="bi bi-chevron-down"></i></a>
-            <ul>
-              <li><a href="#">Drop Down 1</a></li>
-              <li class="dropdown"><a href="#"><span>Deep Drop Down</span> <i class="bi bi-chevron-right"></i></a>
-                <ul>
-                  <li><a href="#">Deep Drop Down 1</a></li>
-                  <li><a href="#">Deep Drop Down 2</a></li>
-                  <li><a href="#">Deep Drop Down 3</a></li>
-                  <li><a href="#">Deep Drop Down 4</a></li>
-                  <li><a href="#">Deep Drop Down 5</a></li>
-                </ul>
-              </li>
-              <li><a href="#">Drop Down 2</a></li>
-              <li><a href="#">Drop Down 3</a></li>
-              <li><a href="#">Drop Down 4</a></li>
-            </ul>
-          </li>
-          <li class="dropdown megamenu"><a href="#"><span>Mega Menu</span> <i class="bi bi-chevron-down"></i></a>
+          <li><a class="nav-link scrollto" href="#about">About Contactsmw</a></li>
+          <li class="dropdown"><a href="#"><span>Buy mine</span> <i class="bi bi-chevron-down"></i></a>
             <ul>
               <li>
-                <strong>Column 1</strong>
-                <a href="#">Column 1 link 1</a>
-                <a href="#">Column 1 link 2</a>
-                <a href="#">Column 1 link 3</a>
-              </li>
+                  <form id="myForm" action="{{ route('proregister') }}" method="GET">
+                      @csrf <!-- Include the CSRF token for security -->
+
+                      <!-- Hidden input field to send the value of $pro -->
+                      <input type="hidden" name="pro" value="pro">
+
+                      <a href="#" onclick="document.getElementById('myForm').submit(); return false;">Sell my phone number</a>
+
+                  </form>
+                </li>
+
               <li>
-                <strong>Column 2</strong>
-                <a href="#">Column 2 link 1</a>
-                <a href="#">Column 2 link 2</a>
-                <a href="#">Column 3 link 3</a>
-              </li>
-              <li>
-                <strong>Column 3</strong>
-                <a href="#">Column 3 link 1</a>
-                <a href="#">Column 3 link 2</a>
-                <a href="#">Column 3 link 3</a>
-              </li>
-              <li>
-                <strong>Column 4</strong>
-                <a href="#">Column 4 link 1</a>
-                <a href="#">Column 4 link 2</a>
-                <a href="#">Column 4 link 3</a>
-              </li>
-              <li>
-                <strong>Column 5</strong>
-                <a href="#">Column 5 link 1</a>
-                <a href="#">Column 5 link 2</a>
-                <a href="#">Column 5 link 3</a>
-              </li>
+              <li><a class="nav-link scrollto" href="/paid"> paid contacts</a></li>
+                </li>
             </ul>
           </li>
+        
           <li><a class="nav-link scrollto" href="#contact">
 
-            
+          <li class="dropdown megamenu"><a href="#"><span>Go To District</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+
+              <li>
+                <strong>Southern Region <i class="bx bx-phone-call"></i></strong>
+               @foreach($southerndistricts as $southerndistrict)
+                <a href="/search_region/1">  {{$southerndistrict->district}}</a>
+                @endforeach
+           
+              </li>
+              <li>
+                <strong>Central Region<i class="bx bx-phone-call"></i></strong>
+                @foreach($centraldistricts as $centraldistrict)
+                <a href="/search_region/2">{{$centraldistrict->district}}</a>
+                @endforeach
+              </li>
+              <li>
+                <strong>Nothern Region<i class="bx bx-phone-call"></i></strong>
+                @foreach($notherndistricts as $notherndistrict)
+                <a href="/search_region/3">{{$notherndistrict->district}}</a>
+                @endforeach
+              </li>
+             
+            </ul>
+          </li>
           @if (Route::has('login'))
                                 @auth
                                <a href="/dashboard">Dashboard</a>
@@ -177,75 +167,6 @@
 
    
 
-    <!-- ======= Services Section ======= -->
-    <!-- <section id="services" class="services">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
-          <h2>Services</h2>
-        </div>
-        <div class="row">
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up">
-              <div class="icon"><i class="bx bxl-dribbble"></i></div>
-              <h4 class="title"><a href="">Lorem Ipsum</a></h4>
-              <p class="description">Voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi</p>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
-              <div class="icon"><i class="bx bx-file"></i></div>
-              <h4 class="title"><a href="">Sed ut perspiciatis</a></h4>
-              <p class="description">Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore</p>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
-              <div class="icon"><i class="bx bx-tachometer"></i></div>
-              <h4 class="title"><a href="">Magni Dolores</a></h4>
-              <p class="description">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia</p>
-            </div>
-          </div>
-
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-            <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
-              <div class="icon"><i class="bx bx-world"></i></div>
-              <h4 class="title"><a href="">Nemo Enim</a></h4>
-              <p class="description">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis</p>
-            </div>
-          </div>
-
-        </div>
-
-      </div>
-    </section> -->
-    <!-- End Services Section -->
-
-    <!-- ======= Counts Section ======= -->
-    <!-- <section id="counts" class="counts  section-bg">
-      <div class="container">
-
-        <div class="row no-gutters">
-
-        @foreach ($users as $user)
-       
-          <div class="col-lg-3 col-md-6 d-md-flex align-items-md-stretch">
-          <a href="{{ route('users.show', $user) }}">
-            <div class="count-box">
-              <i class="bi bi-headset"></i>
-              <span data-purecounter-start="0" data-purecounter-end="{{ $user->email }}" data-purecounter-duration="1" class="purecounter"></span>
-              <p><strong>{{ $user->name }}</strong> {{ $user->township }} from {{ $user->district->district }}  </p>
-            </div>
-            </a>
-          </div>
-        @endforeach
-        </div>
-      </div>
-      </section>End count Section -->
-
-
 
       <section id="contacts" class="contacts section-bg">
   <div class="container">
@@ -271,36 +192,35 @@
     </div>
   </div>
 </section>
+<!-- ======= Services Section ======= -->
+<section id="services" class="services">
+  <div class="container">
 
+    <div class="section-title" data-aos="fade-in" data-aos-delay="100">
+      <h2>Narrow your search</h2>
+      <p>Choose a region where the contact you are looking for is located</p>
+    </div>
 
-    <!-- ======= Services Section ======= -->
-    <section id="services" class="services">
-      <div class="container">
-
-        <div class="section-title" data-aos="fade-in" data-aos-delay="100">
-          <h2>Narrow your search </h2>
-          <p>Choose a region where your contact you are looking for  is located</p>
-        </div>
-      
-        <div class="row">
-        @foreach ($regions as $region)
-        
-          <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
-          <a href="/search_region/{{$region->id }}">
+    <div class="row">
+      @foreach ($regions as $region)
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <a href="/search_region/{{$region->id }}" class="w-100 text-decoration-none">
             <div class="icon-box" data-aos="fade-up">
-            <center> <div class="icon"><i class="bx bxl-dribbble"></i></div>
-             
-              <h4 class="title"><a href="">{{ $region->region }} Region</a></h4>
-              <p class="description">click in the iconn and it will give you all the emegency contacts available and see if you are going to find yours there</p>
+              <center>
+                <div class="icon"><i class="bx bxl-dribbble"></i></div>
+                <h4 class="title">{{ $region->region }} Region</h4>
+                <p class="description">
+                  Click the icon, and it will give you all the emergency contacts available in this region.
+                </p>
               </center>
             </div>
-            </a>
-          </div>
-@endforeach
+          </a>
         </div>
+      @endforeach
+    </div>
 
-      </div>
-    </section><!-- End Services Section -->
+  </div>
+</section><!-- End Services Section -->
 
 
 

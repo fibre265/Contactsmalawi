@@ -9,7 +9,7 @@
                 <div class="card-header">{{ __('Login') }}</div>
 
                                 <div class="card-body">
-                                <form method="POST" action="{{ route('register') }}">
+                                <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
     @csrf
 
     <!-- Name -->
@@ -23,23 +23,6 @@
         @endif
     </div>
 
-    <!-- Region -->
-    <!-- <div class="form-group">
-        <label for="region">Region:</label>
-        <select name="region_id" class="form-control{{ $errors->has('region_id') ? ' is-invalid' : '' }}" id="region" required>
-            <option disabled selected>-Select-</option>
-            @foreach ($regions as $region)
-                <option value="{{ $region->id }}">{{ $region->region }}</option>
-            @endforeach
-        </select>
-        @if ($errors->has('region_id'))
-            <span class="invalid-feedback">
-                <strong>{{ $errors->first('region_id') }}</strong>
-            </span>
-        @endif
-    </div> -->
-
-    <!-- District -->
     <div class="form-group">
         <label for="district">District:</label>
         <select name="district_id" class="form-control{{ $errors->has('district_id') ? ' is-invalid' : '' }}" id="district" required>
@@ -51,6 +34,22 @@
         @if ($errors->has('district_id'))
             <span class="invalid-feedback">
                 <strong>{{ $errors->first('district_id') }}</strong>
+            </span>
+        @endif
+    </div>
+
+
+    <div class="form-group">
+        <label for="district">Category:</label>
+        <select name="category_id" class="form-control{{ $errors->has('category_id') ? ' is-invalid' : '' }}" id="category" required>
+            <option disabled selected>-Select-</option>
+            @foreach ($categories as $category)
+                <option value="{{ $category->id }}">{{ $category->category }}</option>
+            @endforeach
+        </select>
+        @if ($errors->has('category_id'))
+            <span class="invalid-feedback">
+                <strong>{{ $errors->first('category_id') }}</strong>
             </span>
         @endif
     </div>
@@ -76,7 +75,18 @@
             </span>
         @endif
     </div>
-
+    @if($pro)
+        <!-- Picture Upload -->
+        <div class="form-group">
+        <label for="picture">Upload Picture:</label>
+        <input type="file" name="picture" class="form-control{{ $errors->has('picture') ? ' is-invalid' : '' }}" id="picture" required>
+        @if ($errors->has('picture'))
+            <span class="invalid-feedback">
+                <strong>{{ $errors->first('picture') }}</strong>
+            </span>
+        @endif
+    </div>
+    @endif
     <!-- Password -->
     <div class="form-group">
         <label for="password">Password:</label>

@@ -16,9 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('township'); 
             $table->string('password'); 
+            $table->string('picture')->nullable(); // Add picture column, nullable
             $table->string('email')->unique();
             $table->unsignedBigInteger('district_id');
             $table->foreign('district_id')->references('id')->on('districts')->onDelete('cascade');
+            $table->unsignedBigInteger('category_id');
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->unsignedBigInteger('region_id');
             $table->foreign('region_id')->references('id')->on('regions')->onDelete('cascade');
             $table->timestamps();
