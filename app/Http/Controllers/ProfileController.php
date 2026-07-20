@@ -18,16 +18,11 @@ class ProfileController extends Controller
      */
     public function show(User $user)
     {
-        //dd($user);
-        // $post is automatically resolved by Laravel using the 'slug' or 'name' field
         return view('profile.show', compact('user'));
     }
     public function search_in_region($id)
     {
-        //$region_id=$id;
-        // $post is automatically resolved by Laravel using the 'slug' or 'name' field
-
-    
+        
         $users=User::where('region_id', '=', 1)->get();
         $districts=District::where('region_id', '=', $id)->get();
         $region=Region::where('id', '=', $id)->pluck('region')->first();
@@ -37,9 +32,8 @@ class ProfileController extends Controller
         return view('profile.search_in_region', compact('users','districts','region'));
     }
     public function search_in_district($id)
-  
+ 
     {
-
         $users=User::where('district_id', '=', $id)->get();
         $districts=District::where('region_id', '=', $id)->get();
         $district=District::where('id', '=', $id)->pluck('district')->first();
@@ -50,7 +44,8 @@ class ProfileController extends Controller
 
     
     public function edit(Request $request): View
-    {//dd('uu');
+    {
+       
         $districts = District::all();
         return view('profile.edit', [
             'user' => $request->user(),
@@ -62,11 +57,8 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    //public function update2(ProfileUpdateRequest $request): RedirectResponse
-    public function update2(Request $request)
-    {
-     
-
+  public function update(Request $request) 
+{
         $validatedData = $request->validate([
             'name' => 'nullable|max:255', // Allow null values to maintain current data
             'email' => 'nullable|max:255', // Ensure email format if provided
@@ -83,19 +75,31 @@ class ProfileController extends Controller
         $request->user()->fill($filteredData);
     
         if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+          //  $request->user()->email_verified_at = null;
         }
-        // dd("shit update");
         $request->user()->save();
-    $districts=District::all();
-    $user= Auth::user();
-        //return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        $districts=District::all();
+        $user= Auth::user();
         return view('profile.edit', compact('districts','user'))->with('status', 'profile-updated'); 
     }
 
     /**
      * Delete the user's account.
      */
+
+    public function destroyUser($id)
+{
+    // Ensure an admin doesn't accidentally delete themselves
+    if (auth()->id() == $id) {
+        return redirect()->back()->with('error', 'You cannot delete your own account from the dashboard management page.');
+    }
+
+    $user = User::findOrFail($id);
+    $user->delete();
+
+    return redirect()->route('dashboard')->with('success', 'User deleted successfully.');
+}
+
     public function destroy(Request $request): RedirectResponse
     {
         $request->validateWithBag('userDeletion', [

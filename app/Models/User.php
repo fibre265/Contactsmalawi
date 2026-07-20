@@ -16,6 +16,7 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    public $timestamps = true;
     protected $fillable = [
         'name',
         'email',
@@ -26,6 +27,9 @@ class User extends Authenticatable
         'region_id',
         'category_id',
         'district_id',
+        'working_votes',        
+        'not_working_votes',    
+        'verification_status',
         
     ];
 
